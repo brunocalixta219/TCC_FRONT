@@ -1,10 +1,8 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
-import Signin from "./SignInScreen/SignIn";
-import Signup from "./SignUpScreen/SignUp";
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 
 const Main = (props) => {
-  return <Signin></Signin>;
+    return <Text>Login feito com sucesso! OU Cadastro feito com sucesso!</Text>;
 };
 
 export default Main;

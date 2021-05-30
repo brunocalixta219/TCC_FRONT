@@ -1,10 +1,6 @@
 import { connect } from 'react-redux';
-import SignUpScreen from './SignUpScreen';
-import {
-    editCredentials,
-    signUp,
-    resetData,
-} from 'redux/actions/Auth';
+import SignUp from './SignUp';
+import { editCredentials, signUp, resetData } from '../../redux/actions/Auth';
 
 const mapStateToProps = ({ auth }) => ({
     email: auth.email,
@@ -18,4 +14,4 @@ const mapDispatchToProps = (dispatch) => ({
     resetData: () => dispatch(resetData()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
