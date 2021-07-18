@@ -5,7 +5,6 @@ const Container = styled.View`
   alignItems: center;
   justifyContent: flex-start;
   backgroundColor: #026db9;
-  
   borderTopLeftRadius: 20px;
   borderTopRightRadius: 20px;
 `;

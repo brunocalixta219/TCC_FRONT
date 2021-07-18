@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
 import "moment/locale/pt-br";
+import { TextInputMask } from 'react-native-masked-text'
 import {
     Container,
     Logo,
@@ -16,6 +17,7 @@ import {
     SignInLink,
     SignInLinkText,
 } from './styles';
+import PageHeader from '../../components/PageHeader';
 
 const image = require("../../images/background/bg2.png");
 
@@ -35,20 +37,8 @@ export default class SignUp extends Component {
     };
 
     state = {
-        name: '',
         birthDate: '',
         sex: '', 
-        phone: '', 
-        cep: '',
-        address: '',
-        number: '',
-        complement: '',
-        neighborhood: '',
-        city: '', 
-        uf: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
         showPassword: false,
         showConfirmPassword: false,
         isSelected: false,
@@ -63,11 +53,12 @@ export default class SignUp extends Component {
             value={this.state.date}
             onChange={(_, date) => {this.setState({ date, showDatePicker: false, birthDate: date })}}
             mode="date"
+            placeholder="Digite uma data"
           />
         );
     
         const dateString = moment(this.state.date).format(
-          "D [de] MMMM [de] YYYY"
+          "D [/] MM [/] YYYY"
         );
     
         if (Platform.OS === "android") {
@@ -76,7 +67,7 @@ export default class SignUp extends Component {
               <TouchableOpacity
                 onPress={() => this.setState({ showDatePicker: true })}
               >
-                <Text style={styles.date}>{dateString}</Text>
+                <Text style={styles.date}>{this.state.date == this.state.birthDate? dateString: "Selecione uma data"}</Text>
               </TouchableOpacity>
               {this.state.showDatePicker && datePicker}
             </View>
@@ -110,6 +101,7 @@ export default class SignUp extends Component {
     handleSexChange = (sex) => {
         const { editCredentials } = this.props;
         editCredentials('sex', sex);
+        this.setState({sex})
     };
 
     handlePhoneChange = (phone) => {
@@ -168,6 +160,10 @@ export default class SignUp extends Component {
         this.props.navigation.goBack();
     };
 
+    handleTermsPress = () => {
+        this.props.navigation.navigate("Terms");
+      };
+
     handleSignUpPress = async () => {
         const { signUp, resetData } = this.props;
 
@@ -201,25 +197,20 @@ export default class SignUp extends Component {
         return (
             <View style={styles.mainContainer}>
                 <ImageBackground source={image} resizeMode="stretch" style={styles.image}>
-                    <View style={styles.pageHeader}></View>
+                    <PageHeader label="CADASTRO" navigation={this.props.navigation}></PageHeader>
                     <ScrollView>
                     <Container>
                         <Text style={styles.text}>Para dar sequência em seu cadastro, precisamos de algumas informações:</Text>
                         <View style={styles.middleContainer}>
                         <Text style={styles.label}>Nome</Text>
                             <Input
+                                placeholder="Digite aqui"
                                 value={this.props.name}
                                 onChangeText={this.handleNameChange}
                                 autoCapitalize="none"
                                 autoCorrect={false}
                             />
                             <Text style={styles.label}>Data de Nascimento</Text>
-                            
-                            
-                            
-                            
-                            
-                            {/* {this.getDatePicker()} */}
                             <View style={styles.datePicker}>
                                 {this.getDatePicker()}
                             </View>
@@ -230,67 +221,76 @@ export default class SignUp extends Component {
                                     style = {{flex: 1,}}
                                     onValueChange={this.handleSexChange}
                                 >
+                                    <Picker.Item label="Selecione" value='0' />
                                     <Picker.Item label="Feminino" value="f" />
                                     <Picker.Item label="Masculino" value="m" />
                                 </Picker>
                             </View>
-                            {/* <Input
-                                value={this.state.sex}
-                                autoCapitalize="none"
-                                autoCorrect={false} 
-                            /> */}
                             <Text style={styles.label}>Telefone</Text>
-                            <Input
-                                value={this.state.phone}
+                            <TextInputMask
+                            placeholder="Digite aqui"
+                            style={styles.input}
+                                type={'cel-phone'}
+                                options={{
+                                    maskType: 'BRL',
+                                    withDDD: true,
+                                    dddMask: '(99) '
+                                }}
+                                value={this.props.phone}
                                 onChangeText={this.handlePhoneChange}
-                                autoCapitalize="none"
-                                autoCorrect={false}
-                            />
+                                />
                             <Text style={styles.label}>CEP</Text>
-                            <Input
-                                value={this.state.cep}
+                            <TextInputMask
+                            placeholder="Digite aqui"
+                                style={styles.input}
+                                type={'zip-code'}
+                                value={this.props.cep}
                                 onChangeText={this.handleCepChange}
-                                autoCapitalize="none"
-                                autoCorrect={false}
-                            />
+                                />
                             <Text style={styles.label}>Endereço</Text>
                             <Input
-                                value={this.state.address}
+                                placeholder="Digite aqui"
+                                value={this.props.address}
                                 onChangeText={this.handleAddressChange}
                                 autoCapitalize="none"
                                 autoCorrect={false}
                             />
                             <Text style={styles.label}>Número</Text>
                             <Input
-                                value={this.state.number}
+                                placeholder="Digite aqui"
+                                value={this.props.number}
                                 onChangeText={this.handleNumberChange}
                                 autoCapitalize="none"
                                 autoCorrect={false}
                             />
                             <Text style={styles.label}>Complemento</Text>
                             <Input
-                                value={this.state.complement}
+                                placeholder="Digite aqui"
+                                value={this.props.complement}
                                 onChangeText={this.handleComplementChange}
                                 autoCapitalize="none"
                                 autoCorrect={false}
                             />
                             <Text style={styles.label}>Bairro</Text>
                             <Input
-                                value={this.state.neighborhood}
+                                placeholder="Digite aqui"
+                                value={this.props.neighborhood}
                                 onChangeText={this.handleNeighborhoodChange}
                                 autoCapitalize="none"
                                 autoCorrect={false}
                             />
                             <Text style={styles.label}>Cidade</Text>
                             <Input
-                                value={this.state.city}
+                                placeholder="Digite aqui"
+                                value={this.props.city}
                                 onChangeText={this.handleCityChange}
                                 autoCapitalize="none"
                                 autoCorrect={false}
                             />
                             <Text style={styles.label}>Estado</Text>
                             <Input
-                                value={this.state.uf}
+                                placeholder="Digite aqui"
+                                value={this.props.uf}
                                 onChangeText={this.handleUfChange}
                                 autoCapitalize="none"
                                 autoCorrect={false}
@@ -298,7 +298,8 @@ export default class SignUp extends Component {
 
                             <Text style={styles.label}>Email</Text>
                                         <Input
-                                        value={this.state.email}
+                                        placeholder="Digite aqui"
+                                        value={this.props.email}
                                         onChangeText={this.handleEmailChange}
                                         autoCapitalize="none"
                                         autoCorrect={false}
@@ -307,16 +308,17 @@ export default class SignUp extends Component {
 <Text style={styles.label}>Senha</Text>
             <View style={styles.inputView}>
               <InputPassword
-                value={this.state.password}
+                placeholder="Digite aqui"
+                value={this.props.password}
                 onChangeText={this.handlePasswordChange}
                 autoCapitalize="none"
                 autoCorrect={false}
-                secureTextEntry = {this.state.showPassword? false : true}
+                secureTextEntry = {this.props.showPassword? false : true}
               />
               <TouchableWithoutFeedback onPress={this.changePasswordView}>
                 <View style={styles.inputIcon}>
                 <Icon
-                  name={this.state.showPassword ? "eye" : "eye-slash"}
+                  name={this.props.showPassword ? "eye" : "eye-slash"}
                   size={20}
                 />
                 </View>
@@ -325,16 +327,17 @@ export default class SignUp extends Component {
                             <Text style={styles.label}>Confirmar Senha</Text>
                                         <View style={styles.inputView}>
                                         <InputPassword
-                                            value={this.state.confirmPassword}
+                                            placeholder="Digite aqui"
+                                            value={this.props.confirmPassword}
                                             onChangeText={this.handleConfirmPasswordChange}
                                             autoCapitalize="none"
                                             autoCorrect={false}
-                                            secureTextEntry = {this.state.showConfirmPassword? false : true}
+                                            secureTextEntry = {this.props.showConfirmPassword? false : true}
                                         />
                                         <TouchableWithoutFeedback onPress={this.changeConfirmPasswordView}>
                                             <View style={styles.inputIcon}>
                                             <Icon
-                                            name={this.state.showPassword ? "eye" : "eye-slash"}
+                                            name={this.props.showPassword ? "eye" : "eye-slash"}
                                             size={20}
                                             />
                                             </View>
@@ -352,7 +355,7 @@ export default class SignUp extends Component {
                                     />
                                     <View>
                                         <Text style={styles.labelTermos}>Estou de acordo com os termos de uso.</Text>
-                                        <Text style={[styles.labelTermos, {fontWeight: 'bold'}]}>Clique aqui para mais informações.
+                                        <Text style={[styles.labelTermos, {fontWeight: 'bold'}]} onPress = {this.handleTermsPress}>Clique aqui para mais informações.
                                         </Text>
                                     </View>
                                     
@@ -464,5 +467,15 @@ const styles = StyleSheet.create({
      }, 
      date: {
          marginLeft: 10,
+     }, 
+     input: {
+        paddingHorizontal: 20,
+        paddingVertical: 8,
+        borderRadius: 5,
+        backgroundColor: '#ededed',
+        alignSelf: 'stretch',
+        marginBottom: 15,
+        marginHorizontal: 20,
+        fontSize: 16,
      }
 });

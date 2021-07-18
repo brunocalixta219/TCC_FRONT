@@ -3,6 +3,11 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import SignIn from '../screens/SignInScreen';
 import SignUp from '../screens/SignUpScreen';
+import Terms from '../screens/TermsScreen/Terms';
+
+
+
+
 import Main from '../screens/Main';
 import Profile from '../screens/Profile';
 
@@ -21,6 +26,10 @@ export default (props) => (
 
         <Stack.Screen name="SignUp">
             {(props) => <SignUp {...props} />}
+        </Stack.Screen>
+
+        <Stack.Screen name="Terms">
+            {(props) => <Terms {...props} />}
         </Stack.Screen>
 
         <Stack.Screen name="Main">
