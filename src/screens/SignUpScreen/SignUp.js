@@ -1,16 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { StatusBar } from 'react-native';
+import { StatusBar, View, StyleSheet, ImageBackground, Text, TouchableWithoutFeedback, ScrollView, CheckBox, Picker, TouchableOpacity }from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import DateTimePicker from "@react-native-community/datetimepicker";
+import moment from "moment";
+import "moment/locale/pt-br";
 import {
     Container,
     Logo,
     Input,
+    InputPassword,
     ErrorMessage,
     Button,
     ButtonText,
     SignInLink,
     SignInLinkText,
 } from './styles';
+
+const image = require("../../images/background/bg2.png");
 
 export default class SignUp extends Component {
     static navigationOptions = {
@@ -28,12 +35,120 @@ export default class SignUp extends Component {
     };
 
     state = {
+        name: '',
+        birthDate: '',
+        sex: '', 
+        phone: '', 
+        cep: '',
+        address: '',
+        number: '',
+        complement: '',
+        neighborhood: '',
+        city: '', 
+        uf: '',
         email: '',
         password: '',
         confirmPassword: '',
+        showPassword: false,
+        showConfirmPassword: false,
+        isSelected: false,
+        showDatePicker: false,
+        date: new Date(),
         error: '',
     };
 
+    getDatePicker = () => {
+        let datePicker = (
+          <DateTimePicker
+            value={this.state.date}
+            onChange={(_, date) => {this.setState({ date, showDatePicker: false, birthDate: date })}}
+            mode="date"
+          />
+        );
+    
+        const dateString = moment(this.state.date).format(
+          "D [de] MMMM [de] YYYY"
+        );
+    
+        if (Platform.OS === "android") {
+          datePicker = (
+            <View>
+              <TouchableOpacity
+                onPress={() => this.setState({ showDatePicker: true })}
+              >
+                <Text style={styles.date}>{dateString}</Text>
+              </TouchableOpacity>
+              {this.state.showDatePicker && datePicker}
+            </View>
+          );
+        }
+    
+        return datePicker;
+      };
+
+    changePasswordView = () => {
+        this.setState({showPassword: !this.state.showPassword})
+      }
+    changeSelected = () => {
+        this.setState({isSelected: !this.state.isSelected})
+      }
+
+    changeConfirmPasswordView = () => {
+        this.setState({showConfirmPassword: !this.state.showConfirmPassword})
+      }
+
+    handleNameChange = (name) => {
+        const { editCredentials } = this.props;
+        editCredentials('name', name);
+    };
+
+    handleBirthDateChange = (birthDate) => {
+        const { editCredentials } = this.props;
+        editCredentials('birthDate', birthDate);
+    };
+
+    handleSexChange = (sex) => {
+        const { editCredentials } = this.props;
+        editCredentials('sex', sex);
+    };
+
+    handlePhoneChange = (phone) => {
+        const { editCredentials } = this.props;
+        editCredentials('phone', phone);
+    };
+
+    handleCepChange = (cep) => {
+        const { editCredentials } = this.props;
+        editCredentials('cep', cep);
+    };
+
+    handleAddressChange = (address) => {
+        const { editCredentials } = this.props;
+        editCredentials('address', address);
+    };
+
+    handleNumberChange = (number) => {
+        const { editCredentials } = this.props;
+        editCredentials('number', number);
+    };
+
+    handleComplementChange = (complement) => {
+        const { editCredentials } = this.props;
+        editCredentials('complement', complement);
+    };
+
+    handleNeighborhoodChange = (neighborhood) => {
+        const { editCredentials } = this.props;
+        editCredentials('neighborhood', neighborhood);
+    };
+    handleCityChange = (city) => {
+        const { editCredentials } = this.props;
+        editCredentials('city', city);
+    };
+    handleUfChange = (uf) => {
+        const { editCredentials } = this.props;
+        editCredentials('uf', uf);
+    };
     handleEmailChange = (email) => {
         const { editCredentials } = this.props;
         editCredentials('email', email);
@@ -70,7 +185,7 @@ export default class SignUp extends Component {
                     return;
                 }
 
-                this.props.navigation.navigate('Main', {
+                this.props.navigation.navigate('Profile', {
                     token: response.data.token,
                 });
             } catch (_err) {
@@ -84,45 +199,270 @@ export default class SignUp extends Component {
 
     render() {
         return (
-            <Container>
-                <StatusBar hidden />
-                <Logo
-                    source={require('../../images/logo_FEI.png')}
-                    resizeMode="contain"
+            <View style={styles.mainContainer}>
+                <ImageBackground source={image} resizeMode="stretch" style={styles.image}>
+                    <View style={styles.pageHeader}></View>
+                    <ScrollView>
+                    <Container>
+                        <Text style={styles.text}>Para dar sequência em seu cadastro, precisamos de algumas informações:</Text>
+                        <View style={styles.middleContainer}>
+                        <Text style={styles.label}>Nome</Text>
+                            <Input
+                                value={this.props.name}
+                                onChangeText={this.handleNameChange}
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                            />
+                            <Text style={styles.label}>Data de Nascimento</Text>
+                            
+                            
+                            
+                            
+                            
+                            {/* {this.getDatePicker()} */}
+                            <View style={styles.datePicker}>
+                                {this.getDatePicker()}
+                            </View>
+                            <Text style={styles.label}>Sexo</Text>
+                            <View style={styles.picker}>
+                                <Picker
+                                    selectedValue={this.state.sex}
+                                    style = {{flex: 1,}}
+                                    onValueChange={this.handleSexChange}
+                                >
+                                    <Picker.Item label="Feminino" value="f" />
+                                    <Picker.Item label="Masculino" value="m" />
+                                </Picker>
+                            </View>
+                            {/* <Input
+                                value={this.state.sex}
+                                autoCapitalize="none"
+                                autoCorrect={false} 
+                            /> */}
+                            <Text style={styles.label}>Telefone</Text>
+                            <Input
+                                value={this.state.phone}
+                                onChangeText={this.handlePhoneChange}
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                            />
+                            <Text style={styles.label}>CEP</Text>
+                            <Input
+                                value={this.state.cep}
+                                onChangeText={this.handleCepChange}
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                            />
+                            <Text style={styles.label}>Endereço</Text>
+                            <Input
+                                value={this.state.address}
+                                onChangeText={this.handleAddressChange}
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                            />
+                            <Text style={styles.label}>Número</Text>
+                            <Input
+                                value={this.state.number}
+                                onChangeText={this.handleNumberChange}
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                            />
+                            <Text style={styles.label}>Complemento</Text>
+                            <Input
+                                value={this.state.complement}
+                                onChangeText={this.handleComplementChange}
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                            />
+                            <Text style={styles.label}>Bairro</Text>
+                            <Input
+                                value={this.state.neighborhood}
+                                onChangeText={this.handleNeighborhoodChange}
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                            />
+                            <Text style={styles.label}>Cidade</Text>
+                            <Input
+                                value={this.state.city}
+                                onChangeText={this.handleCityChange}
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                            />
+                            <Text style={styles.label}>Estado</Text>
+                            <Input
+                                value={this.state.uf}
+                                onChangeText={this.handleUfChange}
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                            />
+
+                            <Text style={styles.label}>Email</Text>
+                                        <Input
+                                        value={this.state.email}
+                                        onChangeText={this.handleEmailChange}
+                                        autoCapitalize="none"
+                                        autoCorrect={false}
+                                        />
+
+<Text style={styles.label}>Senha</Text>
+            <View style={styles.inputView}>
+              <InputPassword
+                value={this.state.password}
+                onChangeText={this.handlePasswordChange}
+                autoCapitalize="none"
+                autoCorrect={false}
+                secureTextEntry = {this.state.showPassword? false : true}
+              />
+              <TouchableWithoutFeedback onPress={this.changePasswordView}>
+                <View style={styles.inputIcon}>
+                <Icon
+                  name={this.state.showPassword ? "eye" : "eye-slash"}
+                  size={20}
                 />
-                <Input
-                    placeholder="Endereço de e-mail"
-                    value={this.props.email}
-                    onChangeText={this.handleEmailChange}
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                />
-                <Input
-                    placeholder="Senha"
-                    value={this.props.password}
-                    onChangeText={this.handlePasswordChange}
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    secureTextEntry
-                />
-                <Input
-                    placeholder="Confirmar Senha"
-                    value={this.props.confirmPassword}
-                    onChangeText={this.handleConfirmPasswordChange}
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    secureTextEntry
-                />
-                {this.state.error.length !== 0 && (
-                    <ErrorMessage>{this.state.error}</ErrorMessage>
-                )}
-                <Button onPress={this.handleSignUpPress}>
-                    <ButtonText>Criar conta</ButtonText>
-                </Button>
-                <SignInLink onPress={this.handleBackToLoginPress}>
-                    <SignInLinkText>Voltar ao login</SignInLinkText>
-                </SignInLink>
-            </Container>
+                </View>
+              </TouchableWithoutFeedback>
+            </View>
+                            <Text style={styles.label}>Confirmar Senha</Text>
+                                        <View style={styles.inputView}>
+                                        <InputPassword
+                                            value={this.state.confirmPassword}
+                                            onChangeText={this.handleConfirmPasswordChange}
+                                            autoCapitalize="none"
+                                            autoCorrect={false}
+                                            secureTextEntry = {this.state.showConfirmPassword? false : true}
+                                        />
+                                        <TouchableWithoutFeedback onPress={this.changeConfirmPasswordView}>
+                                            <View style={styles.inputIcon}>
+                                            <Icon
+                                            name={this.state.showPassword ? "eye" : "eye-slash"}
+                                            size={20}
+                                            />
+                                            </View>
+                                        </TouchableWithoutFeedback>
+                                        </View>
+                            {this.state.error.length !== 0 && (
+                                <ErrorMessage>{this.state.error}</ErrorMessage>
+                            )}
+
+                            <View style={styles.checkboxContainer}>
+                                    <CheckBox
+                                    value={this.state.isSelected}
+                                    onValueChange={this.changeSelected}
+                                    style={styles.checkbox}
+                                    />
+                                    <View>
+                                        <Text style={styles.labelTermos}>Estou de acordo com os termos de uso.</Text>
+                                        <Text style={[styles.labelTermos, {fontWeight: 'bold'}]}>Clique aqui para mais informações.
+                                        </Text>
+                                    </View>
+                                    
+                                </View>
+                            <Button onPress={this.handleSignUpPress}>
+                                <ButtonText>Concluir</ButtonText>
+                            </Button>
+                        </View>
+                    </Container> 
+                    </ScrollView>
+                </ImageBackground>
+               
+            </View>
+            
         );
     }
 }
+
+const styles = StyleSheet.create({
+    mainContainer: {
+        flex: 1,
+    },
+    pageHeader: {
+        padding: 50,
+        flex: 1,
+    },
+    middleContainer: { 
+        flex: 1,
+       paddingTop: 20,
+        backgroundColor: 'white',
+        marginHorizontal: 30,
+        borderRadius: 20,
+        paddingBottom: 15,
+        alignSelf: 'stretch', 
+        marginBottom: 20,
+    }, 
+    image: {
+       flex: 1,
+       justifyContent: "center",
+       alignItems: "center",
+      },
+    text: {
+        margin: 30,
+        color: 'white',
+        fontWeight: 'bold',
+        fontSize: 15,
+        flexWrap: 'wrap'
+    },
+    label: {
+        alignSelf: 'flex-start',
+        marginLeft: 20,
+        color: '#616161',
+        fontSize: 20,
+        fontWeight: 'bold',
+        flexWrap: 'wrap'
+      }, 
+      inputView: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 20,
+      }, 
+      inputIcon: {
+        flex: 1,
+        backgroundColor: '#ededed',
+        justifyContent: 'center',
+        alignSelf: 'stretch',
+        borderTopRightRadius: 5,
+        borderBottomRightRadius: 5,
+      },
+      checkboxContainer: {
+        flexDirection: "row",
+        margin: 20,
+        marginLeft: 0,
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        justifyContent: 'center',
+        transform: [{ scaleX: 2 }, { scaleY: 2 }]
+      },
+      checkbox: {
+          width: 20,
+          height: 20,
+         // padding: 10,
+        alignSelf: "center",
+        
+      },
+      labelTermos: {
+        alignSelf: 'flex-start',
+        marginLeft: 10,
+        color: 'black',
+        fontSize: 7,
+        flexWrap: 'wrap'
+      }, 
+     picker: {
+        borderRadius: 5,
+        backgroundColor: '#ededed',
+        alignSelf: 'stretch',
+        marginBottom: 15,
+        marginHorizontal: 20,
+        fontSize: 16,
+     }, 
+     datePicker: {
+         fontSize: 20,
+         paddingVertical: 13,
+         alignSelf: 'stretch',
+         backgroundColor: '#ededed',
+         marginHorizontal: 20,
+         borderRadius: 5,
+     }, 
+     date: {
+         marginLeft: 10,
+     }
+});

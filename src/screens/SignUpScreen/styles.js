@@ -1,10 +1,13 @@
 import styled from 'styled-components';
 
 const Container = styled.View`
-  flex: 1;
+  flex: 5;
   alignItems: center;
-  justifyContent: center;
-  backgroundColor: #f5f5f5;
+  justifyContent: flex-start;
+  backgroundColor: #026db9;
+  
+  borderTopLeftRadius: 20px;
+  borderTopRightRadius: 20px;
 `;
 
 const Logo = styled.Image`
@@ -22,14 +25,26 @@ const SuccessMessage = styled.Text`
 
 const Input = styled.TextInput`
   paddingHorizontal: 20px;
-  paddingVertical: 15px;
+  paddingVertical: 8px;
   borderRadius: 5px;
-  backgroundColor: #fff;
+  backgroundColor: #ededed;
   alignSelf: stretch;
   marginBottom: 15px;
   marginHorizontal: 20px;
   fontSize: 16px;
 `;
+
+const InputPassword = styled.TextInput`
+flex: 9;
+paddingHorizontal: 20px;
+paddingVertical: 8px;
+backgroundColor: #ededed;
+color: #424242;
+marginLeft: 20px;
+borderTopLeftRadius: 5px;
+borderBottomLeftRadius: 5px;
+`;
+
 
 const ErrorMessage = styled.Text`
   textAlign: center;
@@ -40,12 +55,12 @@ const ErrorMessage = styled.Text`
 `;
 
 const Button = styled.TouchableHighlight`
-  padding: 20px;
-  borderRadius: 5px;
-  backgroundColor: #008FD0;
-  alignSelf: stretch;
+  padding: 10px 80px;
+  borderRadius: 8px;
+  backgroundColor: #02ac60;
   margin: 15px;
   marginHorizontal: 20px;
+  marginBottom: 20px;
 `;
 
 const ButtonText = styled.Text`
@@ -72,6 +87,7 @@ export {
   Logo,
   SuccessMessage,
   Input,
+  InputPassword,
   ErrorMessage,
   Button,
   ButtonText,
