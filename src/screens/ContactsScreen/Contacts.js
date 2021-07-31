@@ -1,8 +1,14 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import BottomTab from '../../components/BottomTab';
 
 const Profile = (props) => {
-    return <View style={styles.container}><Text>Cadastro feito com sucesso!</Text></View>;
+    return (
+    <View style={styles.container}>
+        <Text>Tela de Contatos</Text>
+        <BottomTab {...props} page="contacts"></BottomTab>
+    </View>
+    );
 };
 
 export default Profile;
