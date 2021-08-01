@@ -1,7 +1,7 @@
 import React from 'react';
 import { registerRootComponent } from 'expo';
+import { useFonts } from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
-import { StyleSheet, Text, View } from 'react-native';
 import Stack from './src/routes/Stack';
 import { applyMiddleware, createStore, compose } from 'redux';
 import { Provider } from 'react-redux';
@@ -13,6 +13,15 @@ const middlewareEnhancer = applyMiddleware(apiMiddleware, thunkMiddleware);
 const store = createStore(rootReducer, undefined, compose(middlewareEnhancer));
 
 export default function App() {
+   
+    const [loaded] = useFonts({
+        Roboto: require('./src/fonts/Roboto-Regular.ttf'),
+       });
+       
+       if (!loaded) {
+       return null;
+       }
+
     return (
         <Provider store={store}>
             <NavigationContainer>

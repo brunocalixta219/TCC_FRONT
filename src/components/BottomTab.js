@@ -22,7 +22,7 @@ export default ({page, navigation}) => {
                         <MaterialCommunityIcons 
                             style = {styles.tabIcon}
                             name="home" 
-                            color={page == "home" ? "#003F5E" : "grey"} size={50}/>
+                            color={page == "main" ? "#003F5E" : "grey"} size={50}/>
                 </TouchableWithoutFeedback>
 
                 <TouchableWithoutFeedback 

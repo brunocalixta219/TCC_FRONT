@@ -13,13 +13,13 @@ import EditProfile from '../screens/EditProfileScreen/EditProfile';
 import Contacts from '../screens/ContactsScreen/Contacts';
 import NewContact from '../screens/NewContactScreen/NewContact';
 import EditContact from '../screens/EditContactScreen/EditContact';
-
+import EditPhoto from '../screens/EditPhotoScreen/EditPhoto';
 
 const Stack = createStackNavigator();
 
 export default (props) => (
     <Stack.Navigator
-        initialRouteName="Main"
+        initialRouteName="Profile"
         screenOptions={{ headerShown: false }}
     >
         <Stack.Screen name="SignIn">
@@ -58,6 +58,10 @@ export default (props) => (
 
         <Stack.Screen name="EditContact"  options={{animationEnabled: false}}>
             {(props) => <EditContact {...props} />}
+        </Stack.Screen>
+
+        <Stack.Screen name="EditPhoto"  options={{animationEnabled: false}}>
+            {(props) => <EditPhoto {...props} />}
         </Stack.Screen>
 
     </Stack.Navigator>

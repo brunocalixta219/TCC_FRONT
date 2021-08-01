@@ -1,21 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ImageBackground } from 'react-native';
 import { View, Text, StyleSheet } from 'react-native';
 import BottomTab from '../../components/BottomTab';
 import PageHeader from '../../components/PageHeader';
 
-const Profile = ({route, navigation}) => {
+const Profile = (props) => {
 const image = require('../../images/background/bg2.png')
- 
-const [user, setUser] = useState(route.params ? route.params : [])
     return (
     <View style={styles.container}>
         <ImageBackground source={image} resizeMode="cover" style={styles.image}>
-            <PageHeader label="EDITAR CONTATO" navigation={navigation} />
-                <Text>Id: {user.id}</Text>
-                <Text>Nome: {user.name}</Text>
-                <Text>Phone: {user.phone}</Text>
-            <BottomTab navigation={navigation} page="contacts"></BottomTab>
+            <PageHeader label="EDITAR FOTO" navigation={props.navigation} />
+                <Text>New Contact</Text>
+            <BottomTab {...props} page="profile"></BottomTab>
         </ImageBackground>
     </View>)
     

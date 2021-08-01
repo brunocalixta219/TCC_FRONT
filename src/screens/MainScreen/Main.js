@@ -1,22 +1,34 @@
 import React from 'react';
+import { ImageBackground } from 'react-native';
 import { View, Text, StyleSheet } from 'react-native';
 import BottomTab from '../../components/BottomTab';
+import PageHeader from '../../components/PageHeader';
 
-const Main = (props) => {
+const Profile = (props) => {
+const image = require('../../images/background/bg2.png')
     return (
     <View style={styles.container}>
-        <Text>Tela Principal</Text>
-        <BottomTab {...props} page="home"></BottomTab>
-    </View>
-    )
+        <ImageBackground source={image} resizeMode="cover" style={styles.image}>
+            <PageHeader label="PRINCIPAL" navigation={props.navigation} />
+                <Text>Tela Principal</Text>
+            <BottomTab {...props} page="main"></BottomTab>
+        </ImageBackground>
+    </View>)
+    
+    
+    ;
 };
 
-export default Main;
+export default Profile;
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
-    }
+    }, 
+    image: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      },
 });
