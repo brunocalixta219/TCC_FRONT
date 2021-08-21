@@ -164,34 +164,37 @@ export default class SignUp extends Component {
         this.props.navigation.navigate("Terms");
       };
 
-    handleSignUpPress = async () => {
-        const { signUp, resetData } = this.props;
+    // handleSignUpPress = async () => {
+    //     const { signUp, resetData } = this.props;
 
-        if (this.props.email.length === 0 || this.props.password.length === 0) {
-            this.setState(
-                { error: 'Preencha todos os campos para continuar!' },
-                () => false
-            );
-        } else {
-            try {
-                const response = await signUp();
+    //     if (this.props.email.length === 0 || this.props.password.length === 0) {
+    //         this.setState(
+    //             { error: 'Preencha todos os campos para continuar!' },
+    //             () => false
+    //         );
+    //     } else {
+    //         try {
+    //             const response = await signUp();
 
-                if (response.status !== 200) {
-                    this.setState('Senhas não coincidem!');
-                    return;
-                }
+    //             if (response.status !== 200) {
+    //                 this.setState('Senhas não coincidem!');
+    //                 return;
+    //             }
 
-                this.props.navigation.navigate('Profile', {
-                    token: response.data.token,
-                });
-            } catch (_err) {
-                console.log('ERRO', _err);
-                this.setState({
-                    error: 'Houve um problema com o cadastro, verifique os dados preenchidos!',
-                });
-            }
-        }
-    };
+    //             this.props.navigation.navigate('Profile', {
+    //                 token: response.data.token,
+    //             });
+    //         } catch (_err) {
+    //             console.log('ERRO', _err);
+    //             this.setState({
+    //                 error: 'Houve um problema com o cadastro, verifique os dados preenchidos!',
+    //             });
+    //         }
+    //     }
+    // };
+
+    handleSignUpPress = () => this.props.navigation.navigate("Main");
+
 
     render() {
         return (

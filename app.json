@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "tcc",
-    "slug": "tcc",
+    "name": "hwatch",
+    "slug": "hwatch",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "",
@@ -20,6 +20,8 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.fei.hwatch",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "",
         "backgroundColor": "#FFFFFF"

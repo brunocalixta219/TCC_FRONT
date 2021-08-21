@@ -26,12 +26,12 @@ const styles = StyleSheet.create({
     circleContainer: {
         backgroundColor: 'white',
         borderRadius: 50,
-        position: 'absolute',
+        //position: 'absolute',
         
 
     }, 
     image: {
-        top: 90,
+        //top: 90,
         width: 100, 
         height: 100, 
         borderRadius: 50,
@@ -45,11 +45,10 @@ const styles = StyleSheet.create({
 
     iconContainer: {
         padding: 5,   
-        position: 'absolute',
         alignSelf: 'flex-end',
-        right: 10,
         justifyContent: 'center',
         zIndex: 4,
-        top: 170,
+        marginTop: -12,
+        marginLeft: -50
     }
 });

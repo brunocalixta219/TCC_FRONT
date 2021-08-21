@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         justifyContent: 'center',
         position: 'absolute',
+        zIndex: 4,
         bottom: 0,
         backgroundColor: 'white',
         width: '100%',

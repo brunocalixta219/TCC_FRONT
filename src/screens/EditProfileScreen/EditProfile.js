@@ -16,9 +16,9 @@ const [user, setUser] = useState(props.route.params)
     <View style={styles.container}>
         <ImageBackground source={image} resizeMode="cover" style={styles.image}>
             <PageHeader label="EDITAR PERFIL" navigation={props.navigation}/>
-                <ImageContainer {...props} editProfile />
                 <Container>
                     <WhiteContainer>
+                        <ImageContainer {...props} editProfile />
                         <ScrollView>
                             <TextLabel>Nome</TextLabel>
                             <Input value={user.name} onChangeText={(newValue) => setUser({...user, name: newValue})}></Input>
@@ -53,11 +53,11 @@ const [user, setUser] = useState(props.route.params)
                             <TextLabel>Estado</TextLabel>
                             <Input value={user.uf} onChangeText={(newValue) => setUser({...user, uf: newValue})}></Input>
 
-                        </ScrollView>
-                        
-                        <Button onPress={() => console.warn(user)}>
+                        <Button onPress={() => props.navigation.navigate("Profile")}>
                             <ButtonText> Finalizar </ButtonText>
                         </Button>
+                        </ScrollView>
+                        
                     </WhiteContainer>
                 </Container>
             <BottomTab {...props} page="profile"></BottomTab>

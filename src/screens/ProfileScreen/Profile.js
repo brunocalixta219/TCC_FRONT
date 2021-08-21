@@ -15,9 +15,9 @@ const {user} = require('../../data/user')
     <View style={styles.container}>
         <ImageBackground source={image} resizeMode="cover" style={styles.image}>
             <PageHeader label="PERFIL" navigation={props.navigation} route={props.route} rightIcon name="pencil" onPress={() => props.navigation.navigate("EditProfile", user)} />
-                <ImageContainer {...props}/>
                 <Container>
                     <WhiteContainer>
+                        <ImageContainer {...props}/>
                         <TextLabel>Nome</TextLabel>
                         <TextContainer><Text>{user.name} </Text></TextContainer>
                         

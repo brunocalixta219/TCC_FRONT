@@ -19,7 +19,7 @@ const Stack = createStackNavigator();
 
 export default (props) => (
     <Stack.Navigator
-        initialRouteName="Profile"
+        initialRouteName="SignIn"
         screenOptions={{ headerShown: false }}
     >
         <Stack.Screen name="SignIn">

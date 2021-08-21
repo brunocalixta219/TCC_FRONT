@@ -1,30 +1,29 @@
 import styled from 'styled-components/native';
 
 const Container = styled.View`
-    flex: 1;
-    height: 100%;
-    width: 100%;
-    margin-top: 30px;
-    background-color: #016DB8;
-    border-radius: 8px;
-    align-items: center;
+
+  height: 90%;
+  width: 100%;
+  margin-top: 30px;
+  background-color: #016DB8;
+  border-radius: 15px;
+  align-items: center;
+  justify-content: flex-start;
+  position: absolute;
+  bottom: 0;
 `
 const WhiteContainer = styled.View`
-    flex: 1;
-    height: 70%;
-    width: 80%;
+    margin-top: 10%;
+    width: 90%;
     background-color: white;
     border-radius: 8px;
-    margin-bottom: 100px;
-    margin-top: 10px;
     padding: 15px;
-    padding-top: 60px;
+    justify-content: center;
     align-items: center;
-    text-align: center;
+    margin-bottom: 20%;
 `
 const TextLabel = styled.Text`
     margin-top: 5px;
-    font-family: roboto;
     font-weight: bold;
     font-size: 18px;
 `
@@ -41,7 +40,6 @@ const TextContainer = styled.View`
 const Text = styled.Text`
     align-self: center;
     font-size: 17px;
-    font-family: roboto;
 
 `
 
@@ -51,7 +49,7 @@ const Button = styled.TouchableHighlight`
   backgroundColor: #02ac60;
   margin: 15px;
   marginHorizontal: 20px;
-  marginBottom: 20px;
+  marginBottom: 50px;
 `;
 
 const ButtonText = styled.Text`
@@ -62,6 +60,7 @@ const ButtonText = styled.Text`
 `;
 
 const Input = styled.TextInput`
+  width: 90%;
   paddingHorizontal: 20px;
   paddingVertical: 8px;
   borderRadius: 5px;

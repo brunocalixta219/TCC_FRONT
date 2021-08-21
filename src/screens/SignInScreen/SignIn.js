@@ -51,34 +51,37 @@ export default class SignIn extends Component {
     this.props.navigation.navigate("SignUp");
   };
 
-  handleSignInPress = async () => {
-    const { signIn, resetData } = this.props;
+  // handleSignInPress = async () => {
+  //   const { signIn, resetData } = this.props;
 
-    if (this.props.email.length === 0 || this.props.password.length === 0) {
-      this.setState(
-        { error: "Preencha usuário e senha para continuar!" },
-        () => false
-      );
-    } else {
-      try {
-        const response = await signIn();
+  //   if (this.props.email.length === 0 || this.props.password.length === 0) {
+  //     this.setState(
+  //       { error: "Preencha usuário e senha para continuar!" },
+  //       () => false
+  //     );
+  //   } else {
+  //     try {
+  //       const response = await signIn();
 
-        if (response.status !== 200) {
-          this.setState("Usuário ou senha incorretos!");
-          return;
-        }
+  //       if (response.status !== 200) {
+  //         this.setState("Usuário ou senha incorretos!");
+  //         return;
+  //       }
 
-        this.props.navigation.navigate("Main", {
-          token: response.data.token,
-        });
-      } catch (_err) {
-        console.log("ERRO", _err);
-        this.setState({
-          error: "Houve um problema com o login, verifique suas credenciais!",
-        });
-      }
-    }
-  };
+  //       this.props.navigation.navigate("Main", {
+  //         token: response.data.token,
+  //       });
+  //     } catch (_err) {
+  //       console.log("ERRO", _err);
+  //       this.setState({
+  //         error: "Houve um problema com o login, verifique suas credenciais!",
+  //       });
+  //     }
+  //   }
+  // };
+
+  handleSignInPress = () => this.props.navigation.navigate("Main")
+
 
   changePasswordView = () => {
     this.setState({showPassword: !this.state.showPassword})
