@@ -45,7 +45,7 @@ const Button = styled.TouchableHighlight`
     border-radius: 8px;
     background-color: #02ac60;
     margin: 15px;
-    marginhorizontal: 20px;
+    margin-horizontal: 20px;
     margin-bottom: 50px;
 `;
 
@@ -58,13 +58,13 @@ const ButtonText = styled.Text`
 
 const Input = styled.TextInput`
     width: 90%;
-    paddinghorizontal: 20px;
-    paddingvertical: 8px;
+    padding-horizontal: 20px;
+    padding-vertical: 8px;
     border-radius: 5px;
     background-color: #ededed;
     align-self: stretch;
     margin-bottom: 15px;
-    marginhorizontal: 20px;
+    margin-horizontal: 20px;
     font-size: 16px;
 `;
 

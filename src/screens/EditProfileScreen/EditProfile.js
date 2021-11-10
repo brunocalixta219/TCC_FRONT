@@ -1,9 +1,11 @@
-import React, { useContext, useCallback, useEffect } from 'react';
+import React, { useContext, useCallback, useEffect, useState } from 'react';
+import moment from 'moment';
 import { ImageBackground } from 'react-native';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import BottomTab from '../../components/BottomTab';
 import ImageContainer from '../../components/ImageContainer';
 import PageHeader from '../../components/PageHeader';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import {
     Container,
     WhiteContainer,
@@ -22,6 +24,9 @@ import UserContext from '../../context/userContext';
 const EditProfile = (props) => {
     const image = require('../../images/background/bg2.png');
 
+    const [showDatePicker, setShowDatePicker] = useState(false);
+    const [birthDate, setBirthDate] = useState('');
+    const [date, setDate] = useState(new Date());
     const { state, dispatch } = useContext(UserContext);
     const userId = state.userId;
 
@@ -48,6 +53,41 @@ const EditProfile = (props) => {
         props.editCredentials(field, value);
     };
 
+     const getDatePicker = () => {
+        let datePicker = (
+            <DateTimePicker
+                value={date}
+                onChange={(evt, selectedDate) => {
+                    let currentDate = selectedDate || date
+                    setDate(currentDate);
+                    setShowDatePicker(false);
+                    setBirthDate(currentDate);
+                }}
+                mode="date"
+                placeholder="Digite uma data"
+            />
+        );
+
+        if (Platform.OS === 'android') {
+            datePicker = (
+                <View>
+                    <TouchableOpacity
+                        onPress={() => setShowDatePicker(true)}
+                    >
+                        <Text style={styles.date}>
+                            {date == birthDate
+                                ? moment(birthDate).format('D [/] MM [/] YYYY')
+                                : 'Selecione uma data'}
+                        </Text>
+                    </TouchableOpacity>
+                    {showDatePicker && datePicker}
+                </View>
+            );
+        }
+
+        return datePicker;
+    };
+
     return (
         <View style={styles.container}>
             <ImageBackground
@@ -71,13 +111,10 @@ const EditProfile = (props) => {
                                 }
                             ></Input>
 
-                            <TextLabel>Idade</TextLabel>
-                            <Input
-                                value={props.birthDate}
-                                // onChangeText={(newValue) =>
-
-                                // }
-                            ></Input>
+                            <TextLabel>Data de Nascimento</TextLabel>
+                            <View style={styles.datePicker}>
+                                {getDatePicker()}
+                            </View>
 
                             <TextLabel>Telefone</TextLabel>
                             <Input
