@@ -1,41 +1,56 @@
 import React from 'react';
 import { View, TouchableHighlight, Text, StyleSheet } from 'react-native';
-import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import { TouchableWithoutFeedback } from 'react-native';
 
+export default ({ page, navigation, userId }) => {
+    // const { state, dispatch } = useContext(UserContext);
 
-export default ({page, navigation}) => {
+    // dispatch({
+    //     type: 'setUserId',
+    //     payload: userId,
+    // });
     return (
-        <View style = {styles.tabContainer}>
-            <View style = {styles.tabIcons}>
+        <View style={styles.tabContainer}>
+            <View style={styles.tabIcons}>
                 <TouchableWithoutFeedback
-                    
-                    onPress={() => navigation.navigate("Profile")}>
-                         <MaterialCommunityIcons 
-                            style = {styles.tabIcon} 
-                            name="account" 
-                            color={page == "profile" ? "#003F5E" : "grey"} size={50}/>
+                    onPress={() => navigation.navigate('Profile')}
+                >
+                    <MaterialCommunityIcons
+                        style={styles.tabIcon}
+                        name="account"
+                        color={page == 'profile' ? '#003F5E' : 'grey'}
+                        size={50}
+                    />
                 </TouchableWithoutFeedback>
 
-                <TouchableWithoutFeedback 
-                    onPress={() => navigation.navigate("Main")}>
-                        <MaterialCommunityIcons 
-                            style = {styles.tabIcon}
-                            name="home" 
-                            color={page == "main" ? "#003F5E" : "grey"} size={50}/>
+                <TouchableWithoutFeedback
+                    onPress={() => navigation.navigate('Main')}
+                >
+                    <MaterialCommunityIcons
+                        style={styles.tabIcon}
+                        name="home"
+                        color={page == 'main' ? '#003F5E' : 'grey'}
+                        size={50}
+                    />
                 </TouchableWithoutFeedback>
 
-                <TouchableWithoutFeedback 
-                    onPress={() => navigation.navigate("Contacts")}>
-                        <MaterialCommunityIcons 
-                            style = {styles.tabIcon} 
-                            name="phone" 
-                            color={page == "contacts" ? "#003F5E" : "grey"} size={50}/>
+                <TouchableWithoutFeedback
+                    onPress={() => {
+                        navigation.navigate('Contacts'), userId;
+                    }}
+                >
+                    <MaterialCommunityIcons
+                        style={styles.tabIcon}
+                        name="phone"
+                        color={page == 'contacts' ? '#003F5E' : 'grey'}
+                        size={50}
+                    />
                 </TouchableWithoutFeedback>
             </View>
         </View>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     tabContainer: {
@@ -61,11 +76,11 @@ const styles = StyleSheet.create({
     tabIcons: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignContent: 'center', 
+        alignContent: 'center',
     },
     tabIcon: {
         marginHorizontal: 30,
         paddingVertical: 10,
         paddingHorizontal: 5,
-    }
+    },
 });

@@ -1,48 +1,65 @@
-import React, {useState} from 'react';
-import { View, Text, StyleSheet, FlatList, ImageBackground } from 'react-native';
+import React, { useContext, useCallback, useEffect } from 'react';
+import {
+    View,
+    Text,
+    StyleSheet,
+    FlatList,
+    ImageBackground,
+} from 'react-native';
 import BottomTab from '../../components/BottomTab';
 import PageHeader from '../../components/PageHeader';
+import UserContext from '../../context/userContext';
+import { Container, WhiteContainer } from './styles';
 
-import {Container, WhiteContainer} from './styles'
-
-import contactsList from '../../data/contactsList';
 import ContactCard from '../../components/ContactCard';
-const image = require("../../images/background/bg2.png");
+const image = require('../../images/background/bg2.png');
 
-const Profile = (props) => {
+const Contact = (props) => {
+    const { state, dispatch } = useContext(UserContext);
+    const userId = state.userId;
 
-    // const [contacts, setContacts] = useState(contactsList)
-    
-    // function makeContactList(contacts, props){
-    //     contacts.forEach(element => {
-    //         return ( )
-    //     });
-    // }
+    const refreshTableData = useCallback(async () => {
+        await props.getContacts(userId);
+    }, [props.getContacts]);
+
+    useEffect(() => {
+        refreshTableData();
+    }, [refreshTableData]);
 
     return (
         <Container>
-            <ImageBackground source={image} resizeMode="cover" style={styles.image}>
-                <PageHeader label="CONTATOS" navigation={props.navigation} rightIcon name="plus-circle" onPress={()=> props.navigation.navigate("NewContact")}/>
-                    <WhiteContainer>
-                        <ContactCard {...props}></ContactCard>
-                    </WhiteContainer>
+            <ImageBackground
+                source={image}
+                resizeMode="cover"
+                style={styles.image}
+            >
+                <PageHeader
+                    label="CONTATOS"
+                    navigation={props.navigation}
+                    rightIcon
+                    name="plus-circle"
+                    onPress={() => props.navigation.navigate('NewContact')}
+                />
+                <WhiteContainer>
+                    <ContactCard
+                        {...props}
+                        contactList={props.contactList}
+                        deleteContact={props.deleteContact}
+                        refreshTableData={refreshTableData}
+                    ></ContactCard>
+                </WhiteContainer>
             </ImageBackground>
             <BottomTab {...props} page="contacts"></BottomTab>
         </Container>
     );
 };
 
-export default Profile;
+export default Contact;
 
 const styles = StyleSheet.create({
     image: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      },
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 });
-
-  {/* <FlatList 
-            keyExtractor={user => user.id}
-            data={contacts}
-        /> */}

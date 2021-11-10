@@ -1,11 +1,9 @@
 import { connect } from 'react-redux';
-import SignUp from './SignUp';
-import { editCredentials, signUp, getCEP } from '../../redux/actions/Auth';
+import { getOne, getCEP, editCredentials } from '../../redux/actions/Auth';
+import EditProfile from './EditProfile';
 
 const mapStateToProps = ({ auth }) => ({
     email: auth.email,
-    password: auth.password,
-    confirmPassword: auth.confirmPassword,
     name: auth.name,
     birthDate: auth.birthDate,
     sex: auth.sex,
@@ -20,9 +18,9 @@ const mapStateToProps = ({ auth }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    getOne: (id) => dispatch(getOne(id)),
     editCredentials: (key, value) => dispatch(editCredentials(key, value)),
-    signUp: () => dispatch(signUp()),
     getCEP: () => dispatch(getCEP()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);

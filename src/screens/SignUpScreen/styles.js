@@ -1,96 +1,95 @@
 import styled from 'styled-components/native';
 
 const Container = styled.View`
-  margin-top: 100px;
-  flex: 5;
-  alignItems: center;
-  justifyContent: flex-start;
-  backgroundColor: #026db9;
-  borderTopLeftRadius: 20px;
-  borderTopRightRadius: 20px;
+    margin-top: 100px;
+    flex: 5;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: #026db9;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 `;
 
 const Logo = styled.Image`
-  height: 30%;
-  marginBottom: 40px;
+    height: 30%;
+    margin-bottom: 40px;
 `;
 
 const SuccessMessage = styled.Text`
-  textAlign: center;
-  color: #08a092;
-  fontSize: 16px;
-  marginBottom: 15px;
-  marginHorizontal: 20px;
+    text-align: center;
+    color: #08a092;
+    font-size: 16px;
+    margin-bottom: 15px;
+    margin-horizontal: 20px;
 `;
 
 const Input = styled.TextInput`
-  paddingHorizontal: 20px;
-  paddingVertical: 8px;
-  borderRadius: 5px;
-  backgroundColor: #ededed;
-  alignSelf: stretch;
-  marginBottom: 15px;
-  marginHorizontal: 20px;
-  fontSize: 16px;
+    padding-horizontal: 20px;
+    padding-vertical: 8px;
+    border-radius: 5px;
+    background-color: #ededed;
+    align-self: stretch;
+    margin-bottom: 15px;
+    margin-horizontal: 20px;
+    font-size: 16px;
 `;
 
 const InputPassword = styled.TextInput`
-flex: 9;
-paddingHorizontal: 20px;
-paddingVertical: 8px;
-backgroundColor: #ededed;
-color: #424242;
-marginLeft: 20px;
-borderTopLeftRadius: 5px;
-borderBottomLeftRadius: 5px;
+    flex: 9;
+    padding-horizontal: 20px;
+    padding-vertical: 8px;
+    background-color: #ededed;
+    color: #424242;
+    margin-left: 20px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 `;
 
-
 const ErrorMessage = styled.Text`
-  textAlign: center;
-  color: #ce2029;
-  fontSize: 16px;
-  marginBottom: 15px;
-  marginHorizontal: 20px;
+    text-align: center;
+    color: #ce2029;
+    font-size: 16px;
+    margin-bottom: 15px;
+    margin-horizontal: 20px;
 `;
 
 const Button = styled.TouchableHighlight`
-  padding: 10px 80px;
-  borderRadius: 8px;
-  backgroundColor: #02ac60;
-  margin: 15px;
-  marginHorizontal: 20px;
-  marginBottom: 20px;
+    padding: 10px 80px;
+    border-radius: 8px;
+    background-color: #02ac60;
+    margin: 15px;
+    margin-horizontal: 20px;
+    margin-bottom: 20px;
 `;
 
 const ButtonText = styled.Text`
-  color: #fff;
-  fontWeight: bold;
-  fontSize: 16px;
-  textAlign: center;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
 `;
 
 const SignInLink = styled.TouchableHighlight`
-  padding: 10px;
-  marginTop: 20px;
+    padding: 10px;
+    margin-top: 20px;
 `;
 
 const SignInLinkText = styled.Text`
-  color: #999;
-  fontWeight: bold;
-  fontSize: 16px;
-  textAlign: center;
+    color: #999;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
 `;
 
 export {
-  Container,
-  Logo,
-  SuccessMessage,
-  Input,
-  InputPassword,
-  ErrorMessage,
-  Button,
-  ButtonText,
-  SignInLink,
-  SignInLinkText,
+    Container,
+    Logo,
+    SuccessMessage,
+    Input,
+    InputPassword,
+    ErrorMessage,
+    Button,
+    ButtonText,
+    SignInLink,
+    SignInLinkText,
 };
