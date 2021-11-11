@@ -6,8 +6,8 @@ import PageHeader from '../../components/PageHeader';
 export default props => {
     return(
         <View style={styles.container}>
-            <PageHeader label="TERMOS DE USO" navigation={props.navigation}></PageHeader>
             <ScrollView>
+            <PageHeader label="TERMOS DE USO" navigation={props.navigation}></PageHeader>
                 <View style={styles.textContainer}>
                     <Text style={styles.text}>{termText}</Text> 
                 </View>

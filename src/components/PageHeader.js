@@ -1,9 +1,11 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
-import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, ImageBackground } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+
 export default props => {
+const img = require('../images/background/bg1.png')
     return (
         <SafeAreaView style={styles.pageHeader}>
             <StatusBar style="light" />
@@ -21,7 +23,6 @@ export default props => {
         onPress = {props.onPress}
       /> : <></>}
             
-      
       </SafeAreaView>
     )
 }
@@ -56,5 +57,11 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         position: 'absolute',
         right: 30,
-    }
+    }, 
+     image: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        //height: '100%',
+    },
 });

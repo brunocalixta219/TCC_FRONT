@@ -101,7 +101,7 @@ const EditProfile = (props) => {
                 />
                 <Container>
                     <WhiteContainer>
-                        <ImageContainer {...props} editProfile />
+                        {/* <ImageContainer {...props} editProfile /> */}
                         <ScrollView>
                             <TextLabel>Nome</TextLabel>
                             <Input
@@ -216,4 +216,16 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    datePicker: {
+        paddingHorizontal: 20,
+        paddingVertical: 8,
+        justifyContent: 'center',
+        width: '90%',
+        height: 40,
+        backgroundColor: '#e7e7e7',
+        borderRadius: 5,
+        alignItems: 'flex-start',
+        alignSelf: 'stretch',
+        marginHorizontal: 20,
+    }
 });

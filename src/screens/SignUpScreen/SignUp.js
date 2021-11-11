@@ -156,11 +156,11 @@ export default function SignUp({
                 resizeMode="stretch"
                 style={styles.image}
             >
+                <ScrollView>
                 <PageHeader
                     label="CADASTRO"
                     navigation={navigation}
                 ></PageHeader>
-                <ScrollView>
                     <Container>
                         <Text style={styles.text}>
                             Para dar sequência em seu cadastro, precisamos de
