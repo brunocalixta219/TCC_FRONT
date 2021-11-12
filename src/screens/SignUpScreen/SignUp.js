@@ -187,7 +187,10 @@ export default function SignUp({
                                     selectedValue={sex}
                                     style={{ flex: 1 }}
                                     onChangeText={(event) =>
-                                        changeCredentials('sex', event)
+                                    {
+                                        changeCredentials('sex', event);
+                                        setSex(event);
+                                    }
                                     }
                                 >
                                     <Picker.Item label="Selecione" value="0" />

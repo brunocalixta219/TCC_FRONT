@@ -1,7 +1,7 @@
 import React, { useContext, useCallback, useEffect, useState } from 'react';
 import moment from 'moment';
 import { ImageBackground } from 'react-native';
-import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, ScrollView, TouchableOpacity, Picker } from 'react-native';
 import BottomTab from '../../components/BottomTab';
 import ImageContainer from '../../components/ImageContainer';
 import PageHeader from '../../components/PageHeader';
@@ -27,6 +27,7 @@ const EditProfile = (props) => {
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [birthDate, setBirthDate] = useState('');
     const [date, setDate] = useState(new Date());
+    const [sex, setSex] = useState('');
     const { state, dispatch } = useContext(UserContext);
     const userId = state.userId;
 
@@ -103,18 +104,18 @@ const EditProfile = (props) => {
                     <WhiteContainer>
                         {/* <ImageContainer {...props} editProfile /> */}
                         <ScrollView>
-                            <TextLabel>Nome</TextLabel>
+                            {/* <TextLabel>Nome</TextLabel>
                             <Input
                                 value={props.name}
                                 onChangeText={(event) =>
                                     changeCredentials('name', event)
                                 }
-                            ></Input>
+                            ></Input> */}
 
-                            <TextLabel>Data de Nascimento</TextLabel>
+                            {/* <TextLabel>Data de Nascimento</TextLabel>
                             <View style={styles.datePicker}>
                                 {getDatePicker()}
-                            </View>
+                            </View> */}
 
                             <TextLabel>Telefone</TextLabel>
                             <Input
@@ -124,7 +125,7 @@ const EditProfile = (props) => {
                                 }
                             ></Input>
 
-                            <TextLabel>E-mail</TextLabel>
+                            {/* <TextLabel>E-mail</TextLabel>
                             <Input
                                 value={props.email}
                                 onChangeText={(event) =>
@@ -133,13 +134,23 @@ const EditProfile = (props) => {
                             ></Input>
 
                             <TextLabel>Sexo</TextLabel>
-                            <Input
-                                value={props.sex}
-                                // onChangeText={(newValue) =>
-
-                                // }
-                            ></Input>
-
+                           <View style={styles.picker}>
+                                <Picker
+                                    selectedValue={sex}
+                                    style={{ flex: 1 }}
+                                    onChangeText={(event) =>
+                                    {
+                                        console.warn('event', event)
+                                        changeCredentials('sex', event);
+                                        setSex(event);
+                                    }
+                                    }
+                                >
+                                    <Picker.Item label="Selecione" value="0" />
+                                    <Picker.Item label="Feminino" value="f" />
+                                    <Picker.Item label="Masculino" value="m" />
+                                </Picker>
+                            </View> */}
                             <TextLabel>Endereço</TextLabel>
                             <Input
                                 value={props.street}
@@ -227,5 +238,13 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         alignSelf: 'stretch',
         marginHorizontal: 20,
-    }
+    }, 
+    picker: {
+        borderRadius: 5,
+        backgroundColor: '#ededed',
+        alignSelf: 'stretch',
+        marginBottom: 15,
+        marginHorizontal: 20,
+        fontSize: 16,
+    },
 });
