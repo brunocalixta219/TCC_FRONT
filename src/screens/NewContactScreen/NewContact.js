@@ -1,10 +1,11 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import { ImageBackground } from 'react-native';
 import { View, Text, StyleSheet } from 'react-native';
 import BottomTab from '../../components/BottomTab';
 import ImageContainer from '../../components/ImageContainer';
 import PageHeader from '../../components/PageHeader';
 import UserContext from '../../context/userContext';
+import { TextInputMask } from 'react-native-masked-text';
 import { TextLabel, Input, Button, ButtonText } from './styles';
 
 const NewContact = ({
@@ -14,14 +15,14 @@ const NewContact = ({
     updateContact,
     nameContact,
     phoneContact,
+    resetData,
 }) => {
     const image = require('../../images/background/bg2.png');
 
     const { state, dispatch } = useContext(UserContext);
     const userId = state.userId;
 
-    //const [user, setUser] = useState(route.params ? route.params : []);
-    const changeField = (field, { target: { value } }) => {
+    const changeField = (field, value) => {
         updateContact(field, value);
     };
 
@@ -29,6 +30,10 @@ const NewContact = ({
         insertContact(userId);
         navigation.navigate('Main');
     }, []);
+
+    useEffect(() => {
+        resetData();
+    }, [resetData]);
 
     return (
         <View style={styles.container}>
@@ -46,15 +51,23 @@ const NewContact = ({
                             <TextLabel>Nome do Contato</TextLabel>
                             <Input
                                 value={nameContact}
-                                onChange={(event) =>
+                                onChangeText={(event) =>
                                     changeField('nameContact', event)
                                 }
                             />
 
                             <TextLabel>Telefone</TextLabel>
-                            <Input
+                            <TextInputMask
+                                placeholder="Digite aqui"
+                                style={styles.input}
+                                type={'cel-phone'}
+                                options={{
+                                    maskType: 'BRL',
+                                    withDDD: true,
+                                    dddMask: '(99) ',
+                                }}
                                 value={phoneContact}
-                                onChange={(event) =>
+                                onChangeText={(event) =>
                                     changeField('phoneContact', event)
                                 }
                             />
@@ -128,5 +141,15 @@ const styles = StyleSheet.create({
         width: '90%',
         alignItems: 'center',
         marginTop: '8%',
+    },
+    input: {
+        paddingHorizontal: 10,
+        justifyContent: 'center',
+        width: '100%',
+        height: 40,
+        backgroundColor: '#e7e7e7',
+        borderRadius: 8,
+        alignItems: 'center',
+        textAlignVertical: 'center',
     },
 });

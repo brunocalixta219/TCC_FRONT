@@ -75,10 +75,11 @@ export default function SignUp({
             <DateTimePicker
                 value={date}
                 onChange={(evt, selectedDate) => {
-                    let currentDate = selectedDate || date
+                    let currentDate = selectedDate || date;
                     setDate(currentDate);
                     setShowDatePicker(false);
                     setBirthDate(currentDate);
+                    changeCredentials('birthDate', currentDate);
                 }}
                 mode="date"
                 placeholder="Digite uma data"
@@ -88,9 +89,7 @@ export default function SignUp({
         if (Platform.OS === 'android') {
             datePicker = (
                 <View>
-                    <TouchableOpacity
-                        onPress={() => setShowDatePicker(true)}
-                    >
+                    <TouchableOpacity onPress={() => setShowDatePicker(true)}>
                         <Text style={styles.date}>
                             {date == birthDate
                                 ? moment(birthDate).format('D [/] MM [/] YYYY')
@@ -157,10 +156,10 @@ export default function SignUp({
                 style={styles.image}
             >
                 <ScrollView>
-                <PageHeader
-                    label="CADASTRO"
-                    navigation={navigation}
-                ></PageHeader>
+                    <PageHeader
+                        label="CADASTRO"
+                        navigation={navigation}
+                    ></PageHeader>
                     <Container>
                         <Text style={styles.text}>
                             Para dar sequência em seu cadastro, precisamos de
@@ -186,16 +185,20 @@ export default function SignUp({
                                 <Picker
                                     selectedValue={sex}
                                     style={{ flex: 1 }}
-                                    onChangeText={(event) =>
-                                    {
+                                    onValueChange={(event) => {
                                         changeCredentials('sex', event);
                                         setSex(event);
-                                    }
-                                    }
+                                    }}
                                 >
                                     <Picker.Item label="Selecione" value="0" />
-                                    <Picker.Item label="Feminino" value="f" />
-                                    <Picker.Item label="Masculino" value="m" />
+                                    <Picker.Item
+                                        label="Feminino"
+                                        value="Feminino"
+                                    />
+                                    <Picker.Item
+                                        label="Masculino"
+                                        value="Masculino"
+                                    />
                                 </Picker>
                             </View>
                             <Text style={styles.label}>Telefone</Text>
@@ -379,7 +382,15 @@ export default function SignUp({
                                     </Text>
                                 </View>
                             </View>
-                            <Button onPress={handleSignUpPress}>
+                            <Button
+                                style={
+                                    !isSelected
+                                        ? { backgroundColor: '#CCC' }
+                                        : { backgroundColor: '#02ac60' }
+                                }
+                                onPress={handleSignUpPress}
+                                disabled={!isSelected}
+                            >
                                 <ButtonText>Concluir</ButtonText>
                             </Button>
                         </View>

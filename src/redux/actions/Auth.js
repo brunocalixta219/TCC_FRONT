@@ -96,3 +96,32 @@ export const getOne = (id) => async (dispatch, getState, api) => {
         return error.response;
     }
 };
+
+export const updateProfile = (id) => async (dispatch, getState, api) => {
+    const {
+        phone,
+        cep,
+        street,
+        number,
+        complement,
+        state,
+        city,
+        neighborhood,
+    } = getState().auth;
+
+    try {
+        const response = await api.put(authEndpoints.updateProfile(id), {
+            phone: removeSpecialCharacters(phone),
+            cep: cep,
+            street: street,
+            number: number,
+            complement: complement,
+            state: state,
+            city: city,
+            neighborhood: neighborhood,
+        });
+        return response;
+    } catch (error) {
+        return error.response;
+    }
+};

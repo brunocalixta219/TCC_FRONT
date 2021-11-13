@@ -4,6 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import BottomTab from '../../components/BottomTab';
 import ImageContainer from '../../components/ImageContainer';
 import PageHeader from '../../components/PageHeader';
+import { TextInputMask } from 'react-native-masked-text';
 import { TextLabel, Input, Button, ButtonText } from './styles';
 
 const EditContact = ({
@@ -18,7 +19,7 @@ const EditContact = ({
     const image = require('../../images/background/bg2.png');
     const contactId = route.params._id;
 
-    const changeField = (field, { target: { value } }) => {
+    const changeField = (field, value) => {
         updateContact(field, value);
     };
 
@@ -51,15 +52,23 @@ const EditContact = ({
                             <TextLabel>Nome do Contato</TextLabel>
                             <Input
                                 value={nameContact}
-                                onChange={(event) =>
+                                onChangeText={(event) =>
                                     changeField('nameContact', event)
                                 }
                             />
 
                             <TextLabel>Telefone</TextLabel>
-                            <Input
+                            <TextInputMask
+                                placeholder="Digite aqui"
+                                style={styles.input}
+                                type={'cel-phone'}
+                                options={{
+                                    maskType: 'BRL',
+                                    withDDD: true,
+                                    dddMask: '(99) ',
+                                }}
                                 value={phoneContact}
-                                onChange={(event) =>
+                                onChangeText={(event) =>
                                     changeField('phoneContact', event)
                                 }
                             />
@@ -133,5 +142,15 @@ const styles = StyleSheet.create({
         width: '90%',
         alignItems: 'center',
         marginTop: '8%',
+    },
+    input: {
+        paddingHorizontal: 10,
+        justifyContent: 'center',
+        width: '100%',
+        height: 40,
+        backgroundColor: '#e7e7e7',
+        borderRadius: 8,
+        alignItems: 'center',
+        textAlignVertical: 'center',
     },
 });

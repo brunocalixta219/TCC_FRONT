@@ -2,8 +2,19 @@ import { auth } from '../actionTypes';
 
 const initialState = {
     email: '',
-    password: '',    
+    password: '',
     confirmPassword: '',
+    name: '',
+    birthDate: '',
+    sex: '',
+    phone: '',
+    cep: '',
+    street: '',
+    number: '',
+    complement: '',
+    neighborhood: '',
+    city: '',
+    state: '',
     token: '',
 };
 

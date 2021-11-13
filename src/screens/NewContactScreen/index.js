@@ -1,7 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import NewContact from './NewContact';
-import { insertContact, updateContact } from '../../redux/actions/Contact';
+import {
+    insertContact,
+    updateContact,
+    resetData,
+} from '../../redux/actions/Contact';
 
 const mapStateToProps = ({ contact }) => ({
     nameContact: contact.nameContact,
@@ -11,6 +15,7 @@ const mapStateToProps = ({ contact }) => ({
 const mapDispatchToProps = (dispatch) => ({
     insertContact: (id) => dispatch(insertContact(id)),
     updateContact: (key, value) => dispatch(updateContact(key, value)),
+    resetData: () => dispatch(resetData()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewContact);

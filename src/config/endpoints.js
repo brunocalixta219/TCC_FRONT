@@ -2,6 +2,7 @@ export const authEndpoints = {
     signIn: '/auth/signin',
     signUp: '/auth/signup',
     getOne: (id) => `/auth/getone/${id}`,
+    updateProfile: (id) => `/auth/updateProfile/${id}`,
 };
 
 export const contactEndpoints = {

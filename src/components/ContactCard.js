@@ -25,10 +25,6 @@ export default ({
                 onPress() {
                     deleteContact(user._id);
                     refreshTableData();
-                    dispatch({
-                        type: 'deleteUser',
-                        payload: user,
-                    });
                 },
             },
             {
@@ -60,7 +56,7 @@ export default ({
             <ListItem
                 key={user.id}
                 bottomDivider
-                onPress={() => console.warn('AAAA')}
+                //onPress={() => console.warn('AAAA')}
             >
                 <Avatar source={{ uri: image }} rounded size={50} />
                 <ListItem.Content>

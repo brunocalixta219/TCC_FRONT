@@ -4,6 +4,7 @@ import { View, StyleSheet, PixelRatio } from 'react-native';
 import BottomTab from '../../components/BottomTab';
 import ImageContainer from '../../components/ImageContainer';
 import PageHeader from '../../components/PageHeader';
+import moment from 'moment';
 import {
     Container,
     WhiteContainer,
@@ -55,12 +56,22 @@ const Profile = (props) => {
 
                         <TextLabel>Data de Nascimento</TextLabel>
                         <TextContainer>
-                            <Text>{props.birthDate}</Text>
+                            <Text>
+                                {moment(props.birthDate).format(
+                                    'D [/] MM [/] YYYY'
+                                )}
+                            </Text>
                         </TextContainer>
 
                         <TextLabel>Telefone</TextLabel>
                         <TextContainer>
-                            <Text>{props.phone}</Text>
+                            <Text>{`(${props.phone.substring(
+                                0,
+                                2
+                            )}) ${props.phone.substring(
+                                2,
+                                7
+                            )}-${props.phone.substring(7)}`}</Text>
                         </TextContainer>
 
                         <TextLabel>E-mail</TextLabel>

@@ -7,6 +7,10 @@ export const updateContact = (key, value) => ({
     data: { key, value },
 });
 
+export const resetData = () => ({
+    type: contact.RESET_DATA,
+});
+
 export const getContacts = (id) => async (dispatch, getState, api) => {
     try {
         const response = await api.get(contactEndpoints.getContacts(id));

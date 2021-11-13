@@ -1,20 +1,13 @@
 import React, { useContext, useCallback, useEffect, useState } from 'react';
-import moment from 'moment';
 import { ImageBackground } from 'react-native';
-import { View, StyleSheet, ScrollView, TouchableOpacity, Picker } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import BottomTab from '../../components/BottomTab';
-import ImageContainer from '../../components/ImageContainer';
 import PageHeader from '../../components/PageHeader';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import { TextInputMask } from 'react-native-masked-text';
 import {
     Container,
     WhiteContainer,
     TextLabel,
-    TextContainer,
-    Text,
-    TermButton,
-    TermButtonText,
-    TermText,
     Button,
     ButtonText,
     Input,
@@ -24,10 +17,6 @@ import UserContext from '../../context/userContext';
 const EditProfile = (props) => {
     const image = require('../../images/background/bg2.png');
 
-    const [showDatePicker, setShowDatePicker] = useState(false);
-    const [birthDate, setBirthDate] = useState('');
-    const [date, setDate] = useState(new Date());
-    const [sex, setSex] = useState('');
     const { state, dispatch } = useContext(UserContext);
     const userId = state.userId;
 
@@ -54,40 +43,10 @@ const EditProfile = (props) => {
         props.editCredentials(field, value);
     };
 
-     const getDatePicker = () => {
-        let datePicker = (
-            <DateTimePicker
-                value={date}
-                onChange={(evt, selectedDate) => {
-                    let currentDate = selectedDate || date
-                    setDate(currentDate);
-                    setShowDatePicker(false);
-                    setBirthDate(currentDate);
-                }}
-                mode="date"
-                placeholder="Digite uma data"
-            />
-        );
-
-        if (Platform.OS === 'android') {
-            datePicker = (
-                <View>
-                    <TouchableOpacity
-                        onPress={() => setShowDatePicker(true)}
-                    >
-                        <Text style={styles.date}>
-                            {date == birthDate
-                                ? moment(birthDate).format('D [/] MM [/] YYYY')
-                                : 'Selecione uma data'}
-                        </Text>
-                    </TouchableOpacity>
-                    {showDatePicker && datePicker}
-                </View>
-            );
-        }
-
-        return datePicker;
-    };
+    const _updateProfile = useCallback(() => {
+        props.updateProfile(userId);
+        props.navigation.navigate('Main');
+    }, [props.updateProfile]);
 
     return (
         <View style={styles.container}>
@@ -104,53 +63,31 @@ const EditProfile = (props) => {
                     <WhiteContainer>
                         {/* <ImageContainer {...props} editProfile /> */}
                         <ScrollView>
-                            {/* <TextLabel>Nome</TextLabel>
-                            <Input
-                                value={props.name}
-                                onChangeText={(event) =>
-                                    changeCredentials('name', event)
-                                }
-                            ></Input> */}
-
-                            {/* <TextLabel>Data de Nascimento</TextLabel>
-                            <View style={styles.datePicker}>
-                                {getDatePicker()}
-                            </View> */}
-
                             <TextLabel>Telefone</TextLabel>
-                            <Input
+                            <TextInputMask
+                                placeholder="Digite aqui"
+                                style={styles.input}
+                                type={'cel-phone'}
+                                options={{
+                                    maskType: 'BRL',
+                                    withDDD: true,
+                                    dddMask: '(99) ',
+                                }}
                                 value={props.phone}
                                 onChangeText={(event) =>
                                     changeCredentials('phone', event)
                                 }
-                            ></Input>
+                            />
 
-                            {/* <TextLabel>E-mail</TextLabel>
-                            <Input
-                                value={props.email}
-                                onChangeText={(event) =>
-                                    changeCredentials('email', event)
-                                }
-                            ></Input>
+                            <TextLabel>CEP</TextLabel>
+                            <TextInputMask
+                                placeholder="Digite aqui"
+                                style={styles.input}
+                                type={'zip-code'}
+                                value={props.cep}
+                                onChangeText={onChangeCEP}
+                            />
 
-                            <TextLabel>Sexo</TextLabel>
-                           <View style={styles.picker}>
-                                <Picker
-                                    selectedValue={sex}
-                                    style={{ flex: 1 }}
-                                    onChangeText={(event) =>
-                                    {
-                                        console.warn('event', event)
-                                        changeCredentials('sex', event);
-                                        setSex(event);
-                                    }
-                                    }
-                                >
-                                    <Picker.Item label="Selecione" value="0" />
-                                    <Picker.Item label="Feminino" value="f" />
-                                    <Picker.Item label="Masculino" value="m" />
-                                </Picker>
-                            </View> */}
                             <TextLabel>Endereço</TextLabel>
                             <Input
                                 value={props.street}
@@ -199,11 +136,7 @@ const EditProfile = (props) => {
                                 }
                             ></Input>
 
-                            <Button
-                                onPress={() =>
-                                    props.navigation.navigate('Profile')
-                                }
-                            >
+                            <Button onPress={_updateProfile}>
                                 <ButtonText> Finalizar </ButtonText>
                             </Button>
                         </ScrollView>
@@ -227,19 +160,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    datePicker: {
+    input: {
         paddingHorizontal: 20,
         paddingVertical: 8,
-        justifyContent: 'center',
-        width: '90%',
-        height: 40,
-        backgroundColor: '#e7e7e7',
-        borderRadius: 5,
-        alignItems: 'flex-start',
-        alignSelf: 'stretch',
-        marginHorizontal: 20,
-    }, 
-    picker: {
         borderRadius: 5,
         backgroundColor: '#ededed',
         alignSelf: 'stretch',
