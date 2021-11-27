@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Image } from 'react-native';
 import { ImageBackground } from 'react-native';
 import { View, StyleSheet, SafeAreaView } from 'react-native';
@@ -6,12 +6,18 @@ import UserContext from '../../context/userContext';
 import BottomTab from '../../components/BottomTab';
 import HeartRateBanner from '../../components/HeartRateBanner';
 import OxygenBanner from '../../components/OxygenBanner';
-import PressionBanner from '../../components/PressionBanner';
+import axios from 'axios';
+//import PressionBanner from '../../components/PressionBanner';
 
 const Main = (props) => {
     const image = require('../../images/background/bg2.png');
     const logo = require('../../images/logo/logo1.png');
     const userId = props.route.params.userId;
+
+    const [data, setData] = useState([]);
+
+    const url =
+        'https://api.thingspeak.com/channels/1548049/feeds.json?results=1';
 
     const { state, dispatch } = useContext(UserContext);
 
@@ -21,6 +27,24 @@ const Main = (props) => {
             payload: userId,
         });
     }, [userId]);
+
+    useEffect(() => {
+        axios
+            .get(url)
+            .then((response) => {
+                setData(response.data.feeds[0]);
+            })
+            .catch((error) => console.log(error));
+    }, []);
+
+    setInterval(function () {
+        axios
+            .get(url)
+            .then((response) => {
+                setData(response.data.feeds[0]);
+            })
+            .catch((error) => console.log(error));
+    }, 15000);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -38,9 +62,9 @@ const Main = (props) => {
                         />
                     </View>
                     <View style={styles.banners}>
-                        <HeartRateBanner />
-                        <PressionBanner />
-                        <OxygenBanner />
+                        <HeartRateBanner data={data} />
+                        {/* <PressionBanner /> */}
+                        <OxygenBanner data={data} />
                         <View style={styles.greyStrip} />
                     </View>
                 </View>
@@ -80,7 +104,7 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         paddingVertical: '8%',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-start',
     },
     greyStrip: {
         height: '100%',
