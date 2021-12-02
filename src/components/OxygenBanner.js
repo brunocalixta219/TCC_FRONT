@@ -10,7 +10,7 @@ export default ({ data }) => {
             </View>
             <View style={styles.mainContainer}>
                 <View style={styles.valueContainer}>
-                    <Text style={styles.value}>{data.field1}</Text>
+                    <Text style={styles.value}>{data.field5}</Text>
                     <Text
                         style={{
                             fontSize: 40,

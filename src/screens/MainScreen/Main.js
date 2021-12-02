@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Image } from 'react-native';
 import { ImageBackground } from 'react-native';
 import { View, StyleSheet, SafeAreaView } from 'react-native';
@@ -15,9 +15,10 @@ const Main = (props) => {
     const userId = props.route.params.userId;
 
     const [data, setData] = useState([]);
+    const [envioSms, setEnvioSms] = useState(true);
 
     const url =
-        'https://api.thingspeak.com/channels/1548049/feeds.json?results=1';
+        'https://api.thingspeak.com/channels/1538952/feeds.json?results=1';
 
     const { state, dispatch } = useContext(UserContext);
 
@@ -29,6 +30,8 @@ const Main = (props) => {
     }, [userId]);
 
     useEffect(() => {
+        props.getOne(userId);
+        props.getContacts(userId);
         axios
             .get(url)
             .then((response) => {
@@ -45,6 +48,38 @@ const Main = (props) => {
             })
             .catch((error) => console.log(error));
     }, 15000);
+
+    useEffect(() => {
+        if (envioSms) {
+            if (
+                data.field6 === '1' || //Queda
+                data.field5 < '90' || //SO2
+                data.field4 < '60' || //BPM
+                data.field4 > '99' //BPM 99
+            ) {
+                const queda = data.field6 === '1' ? 'SIM' : 'NÃO';
+
+                axios({
+                    url: 'https://api.zenvia.com/v2/channels/sms/messages',
+                    method: 'post',
+                    headers: {
+                        'X-API-TOKEN': 'nZEy9FwOkcpYfokFYmvtiiPwyn713mSq3fvE',
+                    },
+                    data: {
+                        from: `55${props.contactList.contacts[0].phone}`,
+                        to: `55${props.contactList.contacts[0].phone}`,
+                        contents: [
+                            {
+                                type: 'text',
+                                text: `HWATCH: \nURGENTE!!! ${props.name} ESTÁ COM PROBLEMAS \nQueda: ${queda} \nSO2: ${data.field5} \nBPM: ${data.field4} \nRiscos: SO2 abaixo de 90 - Hipoxemia \nBPM abaixo de 60 - Braquicardia \nBPM acima de 100 - Taquicardia`,
+                            },
+                        ],
+                    },
+                });
+                setEnvioSms(false);
+            }
+        }
+    }, [data, props.contactList]);
 
     return (
         <SafeAreaView style={styles.container}>

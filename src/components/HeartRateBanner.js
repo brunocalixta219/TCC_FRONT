@@ -22,7 +22,7 @@ export default ({ data }) => {
                     <Text
                         style={[styles.valueText, { paddingVertical: '20%' }]}
                     >
-                        {data.field1}
+                        {data.field4}
                     </Text>
                 </View>
                 <View style={[styles.imageContainer, styles.bpmLabel]}>
