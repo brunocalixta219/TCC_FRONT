@@ -15,10 +15,14 @@ const Main = (props) => {
     const userId = props.route.params.userId;
 
     const [data, setData] = useState([]);
+    const [dataFall, setDataFall] = useState('2');
     const [envioSms, setEnvioSms] = useState(true);
 
-    const url =
+    const urlMonitoramento =
         'https://api.thingspeak.com/channels/1538952/feeds.json?results=1';
+
+    const urlQueda =
+        'https://api.thingspeak.com/channels/1548049/feeds.json?results=1';
 
     const { state, dispatch } = useContext(UserContext);
 
@@ -33,18 +37,32 @@ const Main = (props) => {
         props.getOne(userId);
         props.getContacts(userId);
         axios
-            .get(url)
+            .get(urlMonitoramento)
             .then((response) => {
                 setData(response.data.feeds[0]);
+            })
+            .catch((error) => console.log(error));
+
+        axios
+            .get(urlQueda)
+            .then((response) => {
+                setDataFall(response.data.feeds[0]);
             })
             .catch((error) => console.log(error));
     }, []);
 
     setInterval(function () {
         axios
-            .get(url)
+            .get(urlMonitoramento)
             .then((response) => {
                 setData(response.data.feeds[0]);
+            })
+            .catch((error) => console.log(error));
+
+        axios
+            .get(urlQueda)
+            .then((response) => {
+                setDataFall(response.data.feeds[0]);
             })
             .catch((error) => console.log(error));
     }, 15000);
@@ -52,7 +70,7 @@ const Main = (props) => {
     useEffect(() => {
         if (envioSms) {
             if (
-                data.field6 === '1' || //Queda
+                dataFall.field1 === '1' || //Queda
                 data.field5 < '90' || //SO2
                 data.field4 < '60' || //BPM
                 data.field4 > '99' //BPM 99
@@ -79,7 +97,7 @@ const Main = (props) => {
                 setEnvioSms(false);
             }
         }
-    }, [data, props.contactList]);
+    }, [data, dataFall, props.contactList]);
 
     return (
         <SafeAreaView style={styles.container}>
